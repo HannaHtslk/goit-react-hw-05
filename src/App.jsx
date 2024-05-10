@@ -3,6 +3,7 @@ import Navigation from './components/Navigation/Navigation';
 import HomePage from './pages/HomePage/HomePage';
 import MoviesPage from './pages/MoviesPage/MoviesPage';
 import MovieDetailsPage from './pages/MovieDetailsPage/MovieDetailsPage';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 // import MovieCast from './pages/MovieDetailsPage';
 
 const App = () => {
@@ -16,7 +17,7 @@ const App = () => {
         {/* <Route path="/movies/:movieId/cast" element={<MovieCast />} /> */}
         {/* <Route path="/movies/:movieId/reviews" element={<HomePage />} /> */}
 
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );
