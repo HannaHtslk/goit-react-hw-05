@@ -1,0 +1,26 @@
+.container {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  background: rgba(255, 255, 255, 0.028);
+  backdrop-filter: blur(2px);
+}
+
+.link {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  padding: 15px;
+  color: #1285d7;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.link:hover {
+  color: #74b9ff;
+}
+
+.active {
+  composes: link;
+  color: #74b9ff;
+}
