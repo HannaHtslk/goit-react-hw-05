@@ -12,15 +12,15 @@
   font-family: 'Montserrat', sans-serif;
   font-size: 20px;
   padding: 15px;
-  color: #1285d7;
+  color: #0d76c2;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 .link:hover {
-  color: #74b9ff;
+  color: #7fb5eb;
 }
 
 .active {
   composes: link;
-  color: #74b9ff;
+  color: #7fb5eb;
 }

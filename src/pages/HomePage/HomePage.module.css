@@ -1,8 +1,26 @@
 .mainWrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-top: 30px;
+}
+
+.listWrapper {
+  width: 800px;
+  max-width: 1000px;
+  height: 200px;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.list {
+  flex-direction: row;
+}
+
+.item {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
 }
 
 .title {
