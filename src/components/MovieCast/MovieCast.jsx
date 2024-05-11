@@ -12,7 +12,6 @@ const MovieCast = () => {
       const getCastInfo = async () => {
         const data = await fetchCast(movieId);
 
-        console.log(data);
         setTeam(data);
       };
 
@@ -23,6 +22,7 @@ const MovieCast = () => {
   }, [movieId]);
 
   if (!team) return <h3>Loading...</h3>;
+
   return (
     <div className={s.wrapper}>
       <ul className={s.list}>

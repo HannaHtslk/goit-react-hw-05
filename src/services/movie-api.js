@@ -25,3 +25,11 @@ export const fetchCast = async id => {
 
   return data;
 };
+
+export const fetchReviews = async id => {
+  const reviewUrl = `${baseUrl}/movie/${id}/reviews?api_key=${API_KEY}`;
+
+  const { data } = await axios.get(reviewUrl);
+
+  return data;
+};

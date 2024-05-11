@@ -1,0 +1,26 @@
+.container {
+  padding: 20px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  list-style-type: none;
+}
+
+.name {
+  color: aliceblue;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.text {
+  color: rgba(240, 248, 255, 0.7);
+}
+
+.oops {
+  composes: name;
+  text-align: center;
+}

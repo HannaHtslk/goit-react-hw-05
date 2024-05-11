@@ -7,12 +7,16 @@ const MovieList = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    const getMovies = async () => {
-      const { results } = await fetchTrendingMovies();
-      setMovies(results);
-    };
+    try {
+      const getMovies = async () => {
+        const { results } = await fetchTrendingMovies();
+        setMovies(results);
+      };
 
-    getMovies();
+      getMovies();
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
   return (
     <div className={s.mainWrapper}>
