@@ -24,6 +24,7 @@ const MovieDetailsPage = () => {
 
   if (!movie) return <h3>Loading...</h3>;
 
+  const year = movie.release_date.split('-')[0];
   return (
     <div className={s.container}>
       <div className={s.wrapper}>
@@ -34,7 +35,9 @@ const MovieDetailsPage = () => {
         />
         <div className={s.content}>
           <div>
-            <h1 className={s.title}>{movie.title}</h1>
+            <h1 className={s.title}>
+              {movie.title} ({year})
+            </h1>
             <p className={s.text}>
               Rating: {Math.round(movie.vote_average)}/10
             </p>
