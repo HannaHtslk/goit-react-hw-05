@@ -15,6 +15,6 @@ export const fetchTrendingMovies = async () => {
 export const fetchMovieById = async id => {
   const movieUrl = `${baseUrl}/movie/${id}?api_key=${API_KEY}`;
   const { data } = await axios.get(movieUrl);
-  console.log(data);
+
   return data;
 };

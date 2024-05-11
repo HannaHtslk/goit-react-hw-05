@@ -3,7 +3,7 @@
 }
 
 .title {
-  font-size: 24px;
+  font-size: 42px;
   font-weight: 400;
   color: aliceblue;
   margin-bottom: 30px;
@@ -29,9 +29,14 @@
 .item {
   flex: 1 1 45%;
   padding: 10px;
-  color: aliceblue;
+  color: rgba(240, 248, 255, 0.7);
   border-radius: 5px;
   text-align: center;
+  transition: transform 0.3s, color 0.3s;
+}
+.item:hover {
+  transform: scale(1.5);
+  color: aliceblue;
 }
 
 .link {

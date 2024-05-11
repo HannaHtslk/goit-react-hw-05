@@ -14,7 +14,6 @@ const MovieDetailsPage = () => {
     try {
       const getMovieById = async () => {
         const data = await fetchMovieById(movieId);
-        console.log(data);
         setMovie(data);
       };
       getMovieById();
@@ -27,18 +26,37 @@ const MovieDetailsPage = () => {
 
   return (
     <div className={s.container}>
-      <img
-        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-        alt=""
-        width={200}
-      />
-      <div>
-        <h1>{movie.title}</h1>
-        <p>{movie.vote_average}</p>
-        <h2>Overview</h2>
-        <p>{movie.overview}</p>
-        <h3>Genres</h3>
-        <p></p>
+      <div className={s.wrapper}>
+        <img
+          className={s.img}
+          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+          alt=""
+          width={260}
+        />
+        <div className={s.content}>
+          <div>
+            <h1 className={s.title}>{movie.title}</h1>
+            <p className={s.text}>
+              Rating: {Math.round(movie.vote_average)}/10
+            </p>
+          </div>
+          <div>
+            <h2 className={s.subTitle}>Overview</h2>
+            <p className={s.text}>{movie.overview}</p>
+          </div>
+          <div>
+            <h3 className={s.genreTitle}>Genres</h3>
+            <ul className={s.list}>
+              {movie.genres.map(genre => {
+                return (
+                  <li className={s.item} key={genre.id}>
+                    {genre.name}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );
