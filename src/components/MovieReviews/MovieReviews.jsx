@@ -26,7 +26,7 @@ const MovieReviews = () => {
 
   return (
     <div className={s.container}>
-      {review.length ? (
+      {!review.length ? (
         <ul className={s.list}>
           {review.results.slice(0, 5).map(item => {
             return (

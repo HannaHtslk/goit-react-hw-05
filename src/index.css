@@ -1,24 +1,23 @@
 body {
-  font-family: sans-serif;
   line-height: 1.5;
   position: relative;
   min-height: 100vh;
   font-family: 'Montserrat', sans-serif;
-  /* background-color: rgba(5, 5, 81, 0.899); */
 }
-
-body::before {
-  content: '';
-  position: absolute;
+.background {
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgb(2, 5, 47);
+  z-index: -1;
   background-image: url('https://images.hdqwalls.com/wallpapers/blue-abstract-sharp-flows-4k-vn.jpg');
+  background-repeat: repeat-y;
   background-size: cover;
-  background-repeat: no-repeat;
   filter: blur(5px);
+}
+
+.content {
   z-index: -1;
 }
 
