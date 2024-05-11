@@ -2,8 +2,9 @@ body {
   font-family: sans-serif;
   line-height: 1.5;
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   font-family: 'Montserrat', sans-serif;
+  /* background-color: rgba(5, 5, 81, 0.899); */
 }
 
 body::before {
