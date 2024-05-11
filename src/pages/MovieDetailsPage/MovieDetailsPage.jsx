@@ -30,8 +30,7 @@ const MovieDetailsPage = () => {
         <img
           className={s.img}
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt=""
-          width={260}
+          alt={movie.title}
         />
         <div className={s.content}>
           <div>
