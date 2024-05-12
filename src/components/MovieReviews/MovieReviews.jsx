@@ -23,10 +23,10 @@ const MovieReviews = () => {
   }, [movieId]);
 
   if (!review) return <h3>Loading...</h3>;
-
+  console.log(review);
   return (
     <div className={s.container}>
-      {!review.length ? (
+      {review.results.length ? (
         <ul className={s.list}>
           {review.results.slice(0, 5).map(item => {
             return (
