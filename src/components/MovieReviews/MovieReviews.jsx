@@ -23,7 +23,7 @@ const MovieReviews = () => {
   }, [movieId]);
 
   if (!review) return <h3>Loading...</h3>;
-  console.log(review);
+
   return (
     <div className={s.container}>
       {review.results.length ? (

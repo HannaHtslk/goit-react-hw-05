@@ -33,3 +33,10 @@ export const fetchReviews = async id => {
 
   return data;
 };
+
+export const fetchMovieByQuery = async query => {
+  const queryUrl = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`;
+  const { data } = await axios.get(queryUrl);
+
+  return data.results;
+};

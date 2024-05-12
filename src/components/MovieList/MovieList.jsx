@@ -18,9 +18,9 @@ const MovieList = () => {
       console.log(error);
     }
   }, []);
+
   return (
     <div className={s.mainWrapper}>
-      <h1 className={s.title}>Trending Now</h1>
       <div className={s.listWrapper}>
         <ul className={s.list}>
           {movies.map(movie => {

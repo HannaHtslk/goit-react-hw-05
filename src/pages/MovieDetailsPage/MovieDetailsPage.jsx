@@ -30,7 +30,7 @@ const MovieDetailsPage = () => {
       <div className={s.container}>
         <Link className={s.goBack} to="/">
           <IoIosArrowRoundBack className={s.icon} size="30" />
-          to trending
+          back
         </Link>
 
         <div className={s.wrapper}>
