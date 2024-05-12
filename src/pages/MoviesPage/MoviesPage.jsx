@@ -5,14 +5,16 @@ import { fetchMovieByQuery } from '../../services/movie-api';
 import { Link, useSearchParams } from 'react-router-dom';
 
 const MoviesPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [movies, setMovies] = useState([]);
-  const [query, setQuery] = useState('');
 
   useEffect(() => {
     const getMovieByQuery = async () => {
       try {
-        const data = await fetchMovieByQuery(query);
+        const queryWord = searchParams.get('query');
 
+        if (!queryWord) return;
+        const data = await fetchMovieByQuery(queryWord);
         console.log(data);
         setMovies(data);
       } catch (error) {
@@ -20,20 +22,20 @@ const MoviesPage = () => {
       }
     };
     getMovieByQuery();
-  }, [query]);
+  }, [searchParams]);
 
   const handleSubmit = e => {
     e.preventDefault();
     const form = e.target;
 
-    const queryWord = form.elements.query.value;
+    const query = form.elements.title.value;
 
-    if (queryWord.trim() === '') {
+    if (query.trim() === '') {
       alert('This field can not be empty!');
       return;
     }
 
-    setQuery(queryWord);
+    setSearchParams({ query });
 
     form.reset();
   };
@@ -50,22 +52,27 @@ const MoviesPage = () => {
             type="text"
             autoComplete="off"
             placeholder="Enter movie..."
-            name="query"
+            name="title"
           />
         </div>
       </form>
-      <div>
-        <ul>
-          {movies.map(movie => {
-            return (
-              <li key={movie.id}>
-                <Link className={s.link} to={`/movies/${movie.id.toString()}`}>
-                  {movie.title}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+      <div className={s.mainWrapper}>
+        <div className={s.listWrapper}>
+          <ul className={s.list}>
+            {movies.map(movie => {
+              return (
+                <li key={movie.id}>
+                  <Link
+                    className={s.link}
+                    to={`/movies/${movie.id.toString()}`}
+                  >
+                    {movie.title}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     </div>
   );
