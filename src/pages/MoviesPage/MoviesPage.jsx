@@ -15,7 +15,7 @@ const MoviesPage = () => {
 
         if (!queryWord) return;
         const data = await fetchMovieByQuery(queryWord);
-        console.log(data);
+
         setMovies(data);
       } catch (error) {
         console.log(error);

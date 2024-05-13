@@ -1,13 +1,23 @@
-import { useEffect, useState } from 'react';
-import { Link, NavLink, Outlet, useParams } from 'react-router-dom';
+import { Suspense, useEffect, useRef, useState } from 'react';
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useParams,
+} from 'react-router-dom';
 import { fetchMovieById } from '../../services/movie-api';
 import s from './MovieDetailsPage.module.css';
 import { IoIosArrowRoundBack } from 'react-icons/io';
+import Loader from '../../components/Loader/Loader';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
 
   const [movie, setMovie] = useState(null);
+
+  const location = useLocation();
+  const goBackRef = useRef(location.state || '/movies');
 
   useEffect(() => {
     try {
@@ -22,17 +32,17 @@ const MovieDetailsPage = () => {
     }
   }, [movieId]);
 
-  if (!movie) return <h3>Loading...</h3>;
+  if (!movie) return <Loader />;
 
   const year = movie.release_date.split('-')[0];
+
   return (
     <>
       <div className={s.container}>
-        <Link className={s.goBack} to="/">
+        <Link className={s.goBack} to={goBackRef.current}>
           <IoIosArrowRoundBack className={s.icon} size="30" />
           back
         </Link>
-
         <div className={s.wrapper}>
           <img
             className={s.img}
@@ -74,7 +84,9 @@ const MovieDetailsPage = () => {
             Reviews
           </NavLink>
         </nav>
-        <Outlet />
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
       </div>
     </>
   );

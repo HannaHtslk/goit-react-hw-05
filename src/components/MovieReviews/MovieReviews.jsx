@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchReviews } from '../../services/movie-api';
 import s from './MovieReviews.module.css';
+import Loader from '../Loader/Loader';
 
 const MovieReviews = () => {
   const { movieId } = useParams();
@@ -22,25 +23,27 @@ const MovieReviews = () => {
     }
   }, [movieId]);
 
-  if (!review) return <h3>Loading...</h3>;
+  if (!review) return <Loader />;
 
   return (
-    <div className={s.container}>
-      {review.results.length ? (
-        <ul className={s.list}>
-          {review.results.slice(0, 5).map(item => {
-            return (
-              <li className={s.item} key={item.id}>
-                <h4 className={s.name}>{item.author}</h4>
-                <p className={s.text}>{item.content}</p>
-              </li>
-            );
-          })}
-        </ul>
-      ) : (
-        <h4 className={s.oops}>Oops, no reviews here</h4>
-      )}
-    </div>
+    <>
+      <div className={s.container}>
+        {review.results.length ? (
+          <ul className={s.list}>
+            {review.results.slice(0, 5).map(item => {
+              return (
+                <li className={s.item} key={item.id}>
+                  <h4 className={s.name}>{item.author}</h4>
+                  <p className={s.text}>{item.content}</p>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <h4 className={s.oops}>Oops, no reviews here</h4>
+        )}
+      </div>
+    </>
   );
 };
 
