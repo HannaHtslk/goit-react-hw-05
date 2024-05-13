@@ -1,25 +1,8 @@
-import { useEffect, useState } from 'react';
-import { fetchTrendingMovies } from '../../services/movie-api';
 import { Link, useLocation } from 'react-router-dom';
 import s from './MovieList.module.css';
 
-const MovieList = () => {
+const MovieList = ({ movies }) => {
   const location = useLocation();
-
-  const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
-    try {
-      const getMovies = async () => {
-        const { results } = await fetchTrendingMovies();
-        setMovies(results);
-      };
-
-      getMovies();
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
 
   return (
     <>

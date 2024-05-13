@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import s from './MoviesPage.module.css';
 import { IoIosSearch } from 'react-icons/io';
 import { fetchMovieByQuery } from '../../services/movie-api';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+import MovieList from '../../components/MovieList/MovieList';
 
 const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -56,24 +57,7 @@ const MoviesPage = () => {
           />
         </div>
       </form>
-      <div className={s.mainWrapper}>
-        <div className={s.listWrapper}>
-          <ul className={s.list}>
-            {movies.map(movie => {
-              return (
-                <li key={movie.id}>
-                  <Link
-                    className={s.link}
-                    to={`/movies/${movie.id.toString()}`}
-                  >
-                    {movie.title}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </div>
+      <MovieList movies={movies} />
     </div>
   );
 };
