@@ -28,11 +28,10 @@ const MovieReviews = () => {
     fetchMovieReviews();
   }, [movieId]);
 
-  if (!review) return <Loader />;
+  if (isLoading) return <Loader />;
   return (
     <>
       <div className={s.container}>
-        {isLoading && <Loader />}
         {error && <ErrorMessage />}
         {review.results.length ? (
           <ul className={s.list}>

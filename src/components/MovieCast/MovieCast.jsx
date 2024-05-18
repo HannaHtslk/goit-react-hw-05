@@ -27,13 +27,12 @@ const MovieCast = () => {
     getCastInfo();
   }, [movieId]);
 
-  if (!team) return <Loader />;
+  if (isLoading) return <Loader />;
 
   return (
     <>
-      {isLoading && <Loader />}
-      {error && <ErrorMessage />}
       <div className={s.wrapper}>
+        {error && <ErrorMessage />}
         <ul className={s.list}>
           {team.cast.slice(0, 5).map(member => {
             return (

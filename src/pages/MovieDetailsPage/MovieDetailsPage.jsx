@@ -50,7 +50,7 @@ const MovieDetailsPage = () => {
           <IoIosArrowRoundBack className={s.icon} size="30" />
           back
         </Link>
-        {isLoading && <Loader />}
+        {isLoading && <ErrorMessage />}
         {error && <ErrorMessage />}
         <div className={s.wrapper}>
           <img

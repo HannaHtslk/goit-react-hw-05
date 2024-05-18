@@ -48,11 +48,10 @@ const MoviesPage = () => {
 
     form.reset();
   };
-  if (!movies) return <Loader />;
+  if (isLoading) return <Loader />;
 
   return (
     <div>
-      {isLoading && <Loader />}
       {error && <ErrorMessage />}
       <form className={s.wrapper} onSubmit={handleSubmit}>
         <div className={s.formWrapper}>

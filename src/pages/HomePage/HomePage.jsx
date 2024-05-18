@@ -12,6 +12,7 @@ const HomePage = () => {
   useEffect(() => {
     const getMovies = async () => {
       try {
+        setIsLoading(true)
         const { results } = await fetchTrendingMovies();
         setMovies(results);
       } catch (error) {
