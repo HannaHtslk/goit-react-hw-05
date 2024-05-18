@@ -20,7 +20,7 @@ const App = () => {
       <div className="background"> </div>
       <div className="content">
         <Navigation />
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/movies" element={<MoviesPage />} />
