@@ -3,31 +3,36 @@ import { useParams } from 'react-router-dom';
 import { fetchCast } from '../../services/movie-api';
 import s from './MovieCast.module.css';
 import Loader from '../Loader/Loader';
+import ErrorMessage from '../Error/ErrorMessage';
 
 const MovieCast = () => {
   const { movieId } = useParams();
   const [team, setTeam] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    try {
-      const getCastInfo = async () => {
+    const getCastInfo = async () => {
+      try {
+        setIsLoading(true);
         const data = await fetchCast(movieId);
-
         setTeam(data);
-      };
-
-      getCastInfo();
-    } catch (error) {
-      console.log(error);
-    }
+        setError(false);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getCastInfo();
   }, [movieId]);
 
-  if (!team) {
-    return <Loader />;
-  }
+  if (!team) return <Loader />;
 
   return (
     <>
+      {isLoading && <Loader />}
+      {error && <ErrorMessage />}
       <div className={s.wrapper}>
         <ul className={s.list}>
           {team.cast.slice(0, 5).map(member => {

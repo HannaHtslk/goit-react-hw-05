@@ -10,30 +10,37 @@ import { fetchMovieById } from '../../services/movie-api';
 import s from './MovieDetailsPage.module.css';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import Loader from '../../components/Loader/Loader';
+import ErrorMessage from '../../components/Error/ErrorMessage';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
 
   const [movie, setMovie] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
   const location = useLocation();
   const goBackRef = useRef(location.state || '/movies');
 
   useEffect(() => {
-    try {
-      const getMovieById = async () => {
+    const getMovieById = async () => {
+      try {
+        setIsLoading(true);
         const data = await fetchMovieById(movieId);
 
         setMovie(data);
-      };
-      getMovieById();
-    } catch (error) {
-      console.log(error);
-    }
+        setError(false);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getMovieById();
   }, [movieId]);
 
-  if (!movie) return <Loader />;
-
+  if (!movie) {
+    return <Loader />;
+  }
   const year = movie.release_date.split('-')[0];
 
   return (
@@ -43,6 +50,8 @@ const MovieDetailsPage = () => {
           <IoIosArrowRoundBack className={s.icon} size="30" />
           back
         </Link>
+        {isLoading && <Loader />}
+        {error && <ErrorMessage />}
         <div className={s.wrapper}>
           <img
             className={s.img}

@@ -3,31 +3,37 @@ import { useParams } from 'react-router-dom';
 import { fetchReviews } from '../../services/movie-api';
 import s from './MovieReviews.module.css';
 import Loader from '../Loader/Loader';
+import ErrorMessage from '../Error/ErrorMessage';
 
 const MovieReviews = () => {
   const { movieId } = useParams();
 
   const [review, setReview] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
   useEffect(() => {
-    try {
-      const fetchMovieReviews = async () => {
+    const fetchMovieReviews = async () => {
+      try {
+        setIsLoading(true);
         const data = await fetchReviews(movieId);
 
         setReview(data);
-      };
+      } catch (error) {
+        setError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-      fetchMovieReviews();
-    } catch (error) {
-      console.log(error);
-    }
+    fetchMovieReviews();
   }, [movieId]);
 
   if (!review) return <Loader />;
-
   return (
     <>
       <div className={s.container}>
+        {isLoading && <Loader />}
+        {error && <ErrorMessage />}
         {review.results.length ? (
           <ul className={s.list}>
             {review.results.slice(0, 5).map(item => {

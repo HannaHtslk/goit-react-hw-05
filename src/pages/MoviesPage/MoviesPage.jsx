@@ -4,14 +4,20 @@ import { IoIosSearch } from 'react-icons/io';
 import { fetchMovieByQuery } from '../../services/movie-api';
 import { useSearchParams } from 'react-router-dom';
 import MovieList from '../../components/MovieList/MovieList';
+import { toast } from 'react-toastify';
+import Loader from '../../components/Loader/Loader';
+import ErrorMessage from '../../components/Error/ErrorMessage';
 
 const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const getMovieByQuery = async () => {
       try {
+        setIsLoading(true);
         const queryWord = searchParams.get('query');
 
         if (!queryWord) return;
@@ -19,7 +25,9 @@ const MoviesPage = () => {
 
         setMovies(data);
       } catch (error) {
-        console.log(error);
+        setError(true);
+      } finally {
+        setIsLoading(false);
       }
     };
     getMovieByQuery();
@@ -32,7 +40,7 @@ const MoviesPage = () => {
     const query = form.elements.title.value;
 
     if (query.trim() === '') {
-      alert('This field can not be empty!');
+      toast.error('This field can not be empty!');
       return;
     }
 
@@ -40,9 +48,12 @@ const MoviesPage = () => {
 
     form.reset();
   };
+  if (!movies) return <Loader />;
 
   return (
     <div>
+      {isLoading && <Loader />}
+      {error && <ErrorMessage />}
       <form className={s.wrapper} onSubmit={handleSubmit}>
         <div className={s.formWrapper}>
           <button className={s.btn}>
