@@ -4,11 +4,12 @@ import { fetchReviews } from '../../services/movie-api';
 import s from './MovieReviews.module.css';
 import Loader from '../Loader/Loader';
 import ErrorMessage from '../Error/ErrorMessage';
+import { FallingLines } from 'react-loader-spinner';
 
 const MovieReviews = () => {
   const { movieId } = useParams();
 
-  const [review, setReview] = useState(null);
+  const [review, setReview] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   useEffect(() => {
@@ -17,7 +18,7 @@ const MovieReviews = () => {
         setIsLoading(true);
         const data = await fetchReviews(movieId);
 
-        setReview(data);
+        setReview(data.results);
       } catch (error) {
         setError(true);
       } finally {
@@ -28,14 +29,22 @@ const MovieReviews = () => {
     fetchMovieReviews();
   }, [movieId]);
 
-  if (isLoading) return <Loader />;
+  //if (isLoading) return <Loader />;
   return (
     <>
       <div className={s.container}>
         {error && <ErrorMessage />}
-        {review.results.length ? (
+        {isLoading && (
+          <FallingLines
+            color="blue"
+            width="100"
+            visible={true}
+            ariaLabel="falling-circles-loading"
+          />
+        )}
+        {!!review.length && (
           <ul className={s.list}>
-            {review.results.slice(0, 5).map(item => {
+            {review?.slice(0, 5).map(item => {
               return (
                 <li className={s.item} key={item.id}>
                   <h4 className={s.name}>{item.author}</h4>
@@ -44,7 +53,9 @@ const MovieReviews = () => {
               );
             })}
           </ul>
-        ) : (
+        )}
+
+        {!isLoading && !review.length && (
           <h4 className={s.oops}>Oops, no reviews here</h4>
         )}
       </div>
